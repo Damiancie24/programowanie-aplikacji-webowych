@@ -1,0 +1,26 @@
+body {
+  background: lightblue;
+  #newNote {
+    & > *{
+      margin: 10px;
+    }
+  }
+}
+
+#notes {
+  display: flex;
+  flex-wrap: wrap;
+  .note{
+    width: 200px;
+    height: 200px;
+    background: yellowgreen;
+    margin: 20px;
+    padding: 10px;
+    h2{
+      margin: 10px 0;
+
+    }
+  }
+}
+
+
