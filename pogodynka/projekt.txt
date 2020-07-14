@@ -1,0 +1,26 @@
+// klasa App
+// render() - renderowanie wszystkich miast
+
+// klasa Weather
+// pojedyncze wyświetlane miasto z pogodą
+// -----------------
+// właściwości:
+// cityName
+// temperautre
+// pressure
+// humidity
+// description
+// ----------------
+// metody
+// render() - wyświetlanie jednego miasta
+
+
+// klasa LocStorage
+// getData()
+// setData()
+
+// klasa WeatherSource
+// getWeather(city: string): WeatherData
+
+// interface WeatherData
+

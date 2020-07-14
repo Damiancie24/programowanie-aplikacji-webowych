@@ -1,6 +1,5 @@
 import { Note } from './note';
 
-
 export class App {
     notes: Note[] = [];
     constructor() {
@@ -15,8 +14,8 @@ export class App {
         this.loadNotes();
     }
 
-    loadNotes(): void{
-        const noteList = localStorage.getItem;
+    loadNotes(): void {
+        const noteList = localStorage.getItem('noteList');
         if (noteList === null) {
             return;
         }
@@ -35,10 +34,15 @@ export class App {
     addNewNote(): void {
         const newNoteTitle: string = document.querySelector<HTMLInputElement>('#title').value;
         const newNoteContent: string = document.querySelector< HTMLTextAreaElement>('#content').value;
+        const newNoteIsPinned: boolean = document.querySelector< HTMLInputElement>('#isPinned').checked;
         this.createHTMLNote(newNoteTitle, newNoteContent);
 
-        const note = new Note(newNoteTitle, newNoteContent);
-        this.notes.push(note);
+        const note = new Note(newNoteTitle, newNoteContent, newNoteIsPinned);
+        if (newNoteIsPinned) {
+            this.notes.unshift(note);
+        } else {
+            this.notes.push(note);
+        }
         this.updateLocalStorage();
     }
 
@@ -59,7 +63,6 @@ export class App {
         note.appendChild(noteTitleElement);
         note.appendChild(noteContentElement);
         notes.appendChild(note);
-
 
     }
 }
