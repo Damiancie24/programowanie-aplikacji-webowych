@@ -1,3 +1,25 @@
 body {
   background: lightblue;
 }
+
+#chat {
+  background: #fff;
+  padding: 10px;
+  margin-top: 50px;
+  .message {
+    background: lightblue;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    .name {
+      font-weight: bold;
+    }
+    .content {
+      margin: 10px 0;
+    }
+    .time {
+      font-size: 10px;
+    }
+  }
+
+}

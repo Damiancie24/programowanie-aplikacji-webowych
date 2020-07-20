@@ -3,7 +3,7 @@
         "sourceMap": true,
         // "strictNullChecks": true,
         "noImplicitAny": true,
-        "module": "CommonJS",
+        "module": "esNext",
         "target": "es6",
         "removeComments": true,
     },
