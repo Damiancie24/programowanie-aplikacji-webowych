@@ -3,33 +3,23 @@ import { Db } from './db';
 import { Message } from './message.model';
 export class App {
     db: Db;
+    hash: number;
     constructor() {
         this.start();
+        this.hash = Math.random() * 10000000000;
     }
     start(): void {
         this.db = new Db();
         const newMessage = new NewMessage(this.onNewMessage);
+        this.db.watchMessages(this.renderMessages);
     }
     onNewMessage = (name: string, message: string): void => {
-        
-      
         this.db.sendMessage({
             name,
             message,
             date: Date.now()
         });
     };
-    // renderMessages = (messages: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>) => {
-    //     const chat = document.querySelector('#chat');
-    //     chat.innerHTML= '';
-    //     const chatList: Message[] = [];
-        
-    //     messages.forEach(msg => {
-    //         const id = msg.id;
-    //         const data = msg.data();
-    //         console.log(data);
-    //         this.renderSingleMessage(data.name, data.message);
-    //     });
     renderMessages = (messages: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>) => {
         const chat = document.querySelector('#chat');
         chat.innerHTML = '';
@@ -40,7 +30,8 @@ export class App {
             const chat: Message = {
                 name: data.name,
                 message: data.message,
-                date: data.date
+                date: data.date,
+                id
             };
             chatList.push(chat);
         });
@@ -48,33 +39,35 @@ export class App {
         for (const msg of chatList) {
             this.renderSingleMessage(msg);
         }
+        this.handleRemoveBtns();
     };
-
-   
-    // renderSingleMessage(name: string, message: string){
-    //     const template = `
-    //     <div class="message self">
-    //     <div class="name">${name}</div>
-    //     <div class="content">${message}</div>
-    //     </div>
-    //     `;
-    //     const chat = document.querySelector('#chat');
-    //     chat.innerHTML += template;
-
-    // }
     renderSingleMessage(msg: Message): void {
         const name = msg.name;
         const message = msg.message;
         const date = new Date(msg.date);
+        const id = msg.id;
         const template = `
         <div class="message">
+        <div class="remove remove-btn" data-id="${id}">X</div>
         <div class="name">${name}</div>
         <div class="content">${message}</div>
-        <div class="content">${date.toLocaleString()}</div>
+        <div class="time">${date.toLocaleString()}</div>
         </div>
         `;
         const chat = document.querySelector('#chat');
         chat.innerHTML += template;
     }
+    handleRemoveBtns(): void {
+        const btns = document.querySelectorAll('.remove-btn');
+        for ( const btn of btns) {
+            btn.addEventListener('click', (e: Event) => {
+                const id = (e.target as HTMLElement).dataset.id;
+                this.onRemoveClick(id);
+            });
+        }
+    }
+    onRemoveClick = (id: string) => {
+        this.db.removeMessage(id);
+    };
 
 }

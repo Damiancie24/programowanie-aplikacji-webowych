@@ -6,7 +6,6 @@ export class Db {
     private db: firebase.firestore.Firestore;
     constructor() {
         this.initializeDb();
-        
     }
     private initializeDb(): void {
         firebase.initializeApp(firebaseConfig);
@@ -15,12 +14,14 @@ export class Db {
     sendMessage(msg: Message): void {
         this.db.collection('messages').add(msg);
     }
-    watchMassages(handler: (messages: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>) => void): any{
-        this.db.collection('massages').onSnapshot(
+    removeMessage(id: string): void {
+        this.db.collection('messages').doc(id).delete();
+    }
+    watchMessages(handler: (messages: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>) => void): any {
+        this.db.collection('messages').onSnapshot(
             messages => {
                 handler(messages);
             }
-           
         );
     }
 }
