@@ -66,19 +66,32 @@ transform: rotate(90deg);
   display: block;
 }
 .content{
-  width: 50%;
+  width: auto;
   height: auto;
+  h1{
+    margin: 20px;
+  }
+  label{
+    margin-left : 20px;
+  }
 }
-.content h1{
-  margin: 20px;
+// .content h1{
+//   margin: 20px;
+// }
+// .content label{
+//   margin-left : 20px;
+// }
+.cityAdd{
+  color: aqua;
 }
-.content label{
-  margin-left : 20px;
-}
-#cities {
-  display: flex;
-  border: 1px solid rgb(46, 28, 28);
+.city {
+  width: 150px;
+  border: 1px solid rgb(27, 9, 9);
   background: aqua;
+}
+#cities{
+  display: flex;
+  width: 150px;
 }
 // .rightmenu a{
 //   display: block;
